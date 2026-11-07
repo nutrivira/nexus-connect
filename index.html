@@ -477,12 +477,12 @@
 
                     // Dispatch Email Notification to Khalifa
                     const emailSubject = encodeURIComponent(`⚡ New $2 Payment Request from ${name} (TxID: ${txId})`);
-                    const emailBody = encodeURIComponent(`Hello Mediator Khalifa,\n\nA new user has submitted a $2 connection payment to unlock a conversation.\n\nPayer Name: ${name}\nContact: ${contact}\nTarget Connection: ${selectedTargetMember}\nTransaction ID: ${txId}\nAmount: $2.00 USD\n\nPlease log into your Mediator Admin Portal (PIN: 2299) to unlock and approve their conversation.`);
+                    const emailBody = encodeURIComponent(`Hello Mediator Khalifa,\n\nA new user has submitted a $2 connection payment to unlock a conversation.\n\nPayer Name: ${name}\nContact: ${contact}\nTarget Connection: ${selectedTargetMember}\nTransaction ID: ${txId}\nAmount: $2.00 USD\n\nPlease log into your Mediator Admin Portal (Username: khalifa, PIN: 2299) to unlock and approve their conversation.`);
                     
-                    // Trigger mailto link in background
+                    // Trigger mailto link to khalifajmj50@gmail.com
                     window.open(`mailto:khalifajmj50@gmail.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
 
-                    alert(`Payment details submitted! An alert has been sent to Mediator Khalifa (khalifajmj50@gmail.com). You will be notified once Khalifa approves and unlocks your conversation.`);
+                    alert(`Payment details successfully submitted! An email alert has been dispatched to khalifajmj50@gmail.com. Mediator Khalifa will review and approve your conversation in the admin portal shortly.`);
                     toggleModal('paymentModal');
                     document.getElementById('paymentConfirmForm').reset();
                 }
