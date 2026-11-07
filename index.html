@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Connect - Premium Mediated Network & Media Exchange</title>
+    <title>Nexus Luxe - Premium Mediated Network & Media Exchange</title>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -59,7 +59,7 @@
 
     <!-- Announcement Bar -->
     <div class="bg-gradient-to-r from-slate-900 via-gold-700 to-slate-900 text-white text-xs sm:text-sm py-2.5 px-4 text-center font-semibold shadow-md flex items-center justify-center gap-2">
-        <span>✨ Exclusive Peer Network Mediated by <strong>Khalifa</strong></span>
+        <span>✨ Exclusive Peer Network Mediated Securely</span>
         <span class="bg-gold-500/30 px-2 py-0.5 rounded text-[11px] text-amber-200 border border-gold-400/30">$2 Access Fee</span>
     </div>
 
@@ -73,27 +73,26 @@
                 </div>
                 <div>
                     <span class="font-heading font-extrabold text-xl tracking-tight text-slate-900 block leading-tight">NEXUS<span class="text-gold-600">LUXE</span></span>
-                    <span class="text-[10px] text-slate-500 font-bold tracking-widest uppercase block">Mediated by Khalifa</span>
+                    <span class="text-[10px] text-slate-500 font-bold tracking-widest uppercase block">Verified P2P Exchange</span>
                 </div>
             </a>
             
             <!-- Navigation Links -->
             <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
                 <a href="#feed" class="hover:text-gold-600 transition">Media Feed</a>
-                <a href="#hubs" class="hover:text-gold-600 transition">Connect & Connect ($2)</a>
-                <a href="#mediator" class="hover:text-gold-600 transition">Mediator Guarantee</a>
+                <a href="#hubs" class="hover:text-gold-600 transition">Connect ($2 Fee)</a>
             </nav>
 
             <!-- Actions -->
             <div class="flex items-center gap-3">
-                <button onclick="toggleModal('uploadMediaModal')" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-600 to-amber-600 hover:from-gold-700 hover:to-amber-700 text-white font-bold text-xs uppercase tracking-wider transition shadow-md shadow-gold-500/20">
+                <button onclick="toggleModal('uploadMediaModal')" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-600 to-amber-600 hover:from-gold-700 text-white font-bold text-xs uppercase tracking-wider transition shadow-md shadow-gold-500/20">
                     <i data-lucide="camera" class="w-4 h-4"></i>
-                    <span>Share Photo / Video</span>
+                    <span>Upload from Device</span>
                 </button>
                 
-                <button onclick="toggleModal('adminLoginModal')" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs flex items-center gap-1.5 border border-amber-500/30">
-                    <i data-lucide="shield-lock" class="w-4 h-4 text-gold-400"></i>
-                    <span>Mediator Portal</span>
+                <!-- Hidden Admin Portal Access (Secret Trigger) -->
+                <button onclick="toggleModal('adminLoginModal')" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs flex items-center justify-center border border-amber-500/30 shadow-inner" title="Admin Access">
+                    <i data-lucide="shield" class="w-4 h-4 text-gold-400"></i>
                 </button>
 
                 <button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700">
@@ -109,9 +108,6 @@
             <button onclick="toggleModal('uploadMediaModal')" class="w-full py-3 rounded-xl bg-gold-600 text-white font-bold text-sm shadow-md">
                 + Upload Photo / Video
             </button>
-            <button onclick="toggleModal('adminLoginModal')" class="w-full py-3 rounded-xl bg-slate-900 text-gold-400 font-bold text-sm border border-gold-500/30">
-                Mediator Portal (Khalifa)
-            </button>
         </div>
     </header>
 
@@ -124,23 +120,39 @@
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                     <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-amber-100/80 border border-gold-300 text-gold-700 text-xs sm:text-sm font-bold shadow-sm">
                         <i data-lucide="sparkles" class="w-4 h-4 text-gold-600"></i>
-                        <span>Luxury Mediated Community • Managed by Khalifa</span>
+                        <span>Luxury Mediated Community • Secure Escrow</span>
                     </div>
 
                     <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-                        Connect & Share Media with <span class="gradient-gold-text">Trusted Escrow</span>
+                        Connect & Share Media with <span class="gradient-gold-text">Trusted Mediation</span>
                     </h1>
 
                     <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
-                        Showcase high-value photos, showcase promotional videos, and unlock verified direct introductions. Connect with members worldwide via Mediator <span class="font-bold text-slate-900">Khalifa</span> for a single <strong>$2 connection fee</strong>.
+                        Upload your photos and videos straight from your device storage, explore member posts, and unlock verified direct introductions for a single <strong>$2 connection fee</strong>.
                     </p>
+
+                    <!-- Facebook Community Invite Banner -->
+                    <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
+                                <i data-lucide="facebook" class="w-5 h-5"></i>
+                            </div>
+                            <div class="text-xs">
+                                <span class="font-bold text-blue-900 block">Inviting Friends from Facebook?</span>
+                                <span class="text-blue-700">Share your profile & media instantly to grow your network!</span>
+                            </div>
+                        </div>
+                        <button onclick="shareToFacebook()" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-sm flex items-center justify-center gap-1.5 shrink-0">
+                            <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Share on Facebook
+                        </button>
+                    </div>
 
                     <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
                         <button onclick="toggleModal('uploadMediaModal')" class="px-7 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold transition flex items-center gap-2.5 shadow-xl hover:scale-[1.02]">
                             <i data-lucide="upload-cloud" class="w-5 h-5 text-gold-400"></i>
-                            <span>Upload Media Post</span>
+                            <span>Upload from Device</span>
                         </button>
-                        <button onclick="openPaymentModal('All Members (General Connection)')" class="px-7 py-4 rounded-2xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-white font-bold transition flex items-center gap-2.5 shadow-lg shadow-gold-500/25">
+                        <button onclick="openPaymentModal('General Network Member')" class="px-7 py-4 rounded-2xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-white font-bold transition flex items-center gap-2.5 shadow-lg shadow-gold-500/25">
                             <i data-lucide="zap" class="w-5 h-5"></i>
                             <span>Unlock Connections ($2 Fee)</span>
                         </button>
@@ -163,38 +175,21 @@
                     </div>
                 </div>
 
-                <!-- Mediator VIP Card -->
+                <!-- Hero Side Graphic -->
                 <div class="lg:col-span-5">
-                    <div class="relative rounded-3xl overflow-hidden border border-gold-300 shadow-2xl glass-card p-6 sm:p-8 space-y-6">
-                        <div class="flex items-center justify-between border-b border-amber-100 pb-4">
-                            <div class="flex items-center gap-3.5">
-                                <div class="w-12 h-12 rounded-2xl bg-slate-900 text-gold-400 flex items-center justify-center font-bold border border-gold-400">
-                                    <i data-lucide="user-check" class="w-6 h-6"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-slate-900">Khalifa (Chief Mediator)</h3>
-                                    <p class="text-xs text-slate-500">Official Platform Escrow Officer</p>
-                                </div>
-                            </div>
-                            <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full flex items-center gap-1">
-                                <i data-lucide="shield" class="w-3.5 h-3.5 text-gold-600"></i> Verified
-                            </span>
+                    <div class="relative bg-gradient-to-tr from-slate-900 to-gold-700 rounded-3xl p-6 sm:p-8 text-white shadow-2xl space-y-6">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold uppercase tracking-wider text-amber-300">Live Community Stream</span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
                         </div>
-
-                        <div class="space-y-3">
-                            <div class="p-4 rounded-2xl bg-amber-50/70 border border-gold-200 flex items-center justify-between text-xs">
-                                <span class="font-semibold text-slate-700">Access & Matchmaking Fee:</span>
-                                <span class="font-extrabold text-gold-700 text-sm">$2.00 USD</span>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-slate-900 text-white flex items-center justify-between text-xs">
-                                <span class="font-medium text-slate-300">MoMo Code & Bank Details:</span>
-                                <span class="text-xs text-gold-400 font-mono font-bold">🔒 Encrypted / Restricted</span>
-                            </div>
+                        <h3 class="text-xl sm:text-2xl font-bold">Upload & Connect Seamlessly</h3>
+                        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                            Every upload is instantly displayed in the community feed. Members pay the $2 verification fee via MoMo or Bank Card, notifying the mediator to unlock direct contact.
+                        </p>
+                        <div class="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
+                            <span class="text-amber-200">MoMo: 181488</span>
+                            <span class="text-amber-200">Card: 5273...9345</span>
                         </div>
-
-                        <button onclick="openPaymentModal('General Network Connect')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-gold-500 to-amber-600 text-white font-bold text-sm shadow-md hover:brightness-105 transition">
-                            Pay $2 Fee & Get Connected
-                        </button>
                     </div>
                 </div>
 
@@ -202,29 +197,72 @@
         </div>
     </section>
 
-    <!-- Luxury Media Feed & Member Showcase -->
-    <section id="feed" class="py-20 bg-white border-t border-amber-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-                <div class="space-y-2">
-                    <span class="text-gold-600 font-bold text-xs uppercase tracking-wider font-mono">1,000+ USER MEDIA FEED</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Luxury Media & Member Gallery</h2>
-                    <p class="text-slate-600 text-sm">Photos, video reels, and project intros shared by members.</p>
-                </div>
-                <button onclick="toggleModal('uploadMediaModal')" class="px-6 py-3 rounded-xl bg-slate-900 text-amber-300 font-bold text-xs transition shadow-md hover:bg-slate-800 self-start md:self-auto flex items-center gap-2">
-                    <i data-lucide="plus" class="w-4 h-4 text-gold-400"></i>
-                    <span>Post Photo or Video</span>
-                </button>
+    <!-- Media Feed Section -->
+    <section id="feed" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+                <span class="text-xs font-bold text-gold-600 uppercase tracking-widest block mb-1">Community Showcase</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Photos & Videos Feed</h2>
             </div>
+            <button onclick="toggleModal('uploadMediaModal')" class="px-5 py-3 bg-gold-600 hover:bg-gold-700 text-white rounded-xl font-bold text-xs uppercase tracking-wider transition shadow-md flex items-center gap-2">
+                <i data-lucide="plus-circle" class="w-4 h-4"></i> Upload Your Media
+            </button>
+        </div>
 
-            <!-- Media Feed Grid -->
-            <div id="mediaFeedGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Media Cards Rendered by JS -->
-            </div>
+        <!-- Dynamic Feed Grid -->
+        <div id="mediaFeedGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Populated via JavaScript -->
         </div>
     </section>
 
-    <!-- Payment & Connection Modal (Protects Payment Codes) -->
+    <!-- Upload Media Modal (Device Storage) -->
+    <div id="uploadMediaModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white border border-gold-300 rounded-3xl max-w-md w-full p-6 sm:p-8 relative space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleModal('uploadMediaModal')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-800 p-2">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <div class="text-center space-y-2">
+                <div class="w-14 h-14 rounded-2xl bg-amber-100 text-gold-600 flex items-center justify-center mx-auto mb-2 border border-gold-300">
+                    <i data-lucide="upload" class="w-7 h-7"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900">Upload from Device</h3>
+                <p class="text-xs text-slate-500">Share your photos or video clips directly to the community feed.</p>
+            </div>
+
+            <form id="mediaForm" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Name / Title</label>
+                    <input type="text" id="mediaAuthor" required placeholder="e.g. Jean Claude" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Post Title / Headline</label>
+                    <input type="text" id="mediaTitle" required placeholder="e.g. My Latest Project Showcase" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Select Media Type</label>
+                    <select id="mediaType" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
+                        <option value="image">Photo (JPG, PNG)</option>
+                        <option value="video">Video (MP4, MOV)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Choose File from Device</label>
+                    <input type="file" id="deviceFile" accept="image/*,video/*" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-gold-50 file:text-gold-700 hover:file:bg-gold-100">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Short Description</label>
+                    <textarea id="mediaDesc" rows="3" required placeholder="Describe what you are sharing..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 text-white font-bold rounded-2xl text-sm transition shadow-lg shadow-gold-500/25">
+                    Publish Media to Feed
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment & Connection Modal -->
     <div id="paymentModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
         <div class="bg-white border border-gold-300 rounded-3xl max-w-md w-full p-6 sm:p-8 relative space-y-6 shadow-2xl">
             <button onclick="toggleModal('paymentModal')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-800 p-2">
@@ -236,7 +274,7 @@
                     <i data-lucide="lock" class="w-7 h-7"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-slate-900">Pay $2 Connection Fee</h3>
-                <p class="text-xs text-slate-500">Send $2 USD (or local equivalent) to Mediator Khalifa to finalize your introduction.</p>
+                <p class="text-xs text-slate-500">Send $2 USD to our secure mediator accounts below to unlock your direct introduction.</p>
             </div>
 
             <!-- Restricted Payment Details -->
@@ -258,148 +296,98 @@
                 </div>
 
                 <div class="p-3 bg-amber-500/10 rounded-xl border border-gold-500/20 text-[11px] text-amber-200">
-                    💡 After completing your transfer, click below to confirm. Mediator Khalifa will unlock contact numbers immediately.
+                    💡 Submitting your transaction details automatically alerts <strong>khalifajmj50@gmail.com</strong> so your chat can be unlocked immediately in the portal.
                 </div>
             </div>
 
-            <button onclick="confirmPayment()" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-white font-bold rounded-2xl text-sm transition shadow-lg shadow-gold-500/25">
-                I Have Paid $2 (Submit Confirmation)
-            </button>
-        </div>
-    </div>
-
-    <!-- Upload Photo/Video Modal -->
-    <div id="uploadMediaModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-white border border-slate-200 rounded-3xl max-w-md w-full p-6 sm:p-8 relative space-y-6 shadow-2xl">
-            <button onclick="toggleModal('uploadMediaModal')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-800 p-2">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <div class="space-y-1">
-                <h3 class="text-2xl font-bold text-slate-900">Upload Media Content</h3>
-                <p class="text-xs text-slate-500">Post high quality photo links or videos for the 1,000+ member feed.</p>
-            </div>
-
-            <form id="mediaForm" class="space-y-4">
+            <form id="paymentConfirmForm" class="space-y-3 text-left">
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Creator / Member Name</label>
-                    <input type="text" id="mediaAuthor" required placeholder="Your Name" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Full Name / Username</label>
+                    <input type="text" id="payerName" required placeholder="e.g. Eric M." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Post Title / Heading</label>
-                    <input type="text" id="mediaTitle" required placeholder="e.g. VIP Tech Showcase Video" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Phone / WhatsApp Number</label>
+                    <input type="tel" id="payerContact" required placeholder="+250 78... or Email" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Media Type</label>
-                    <select id="mediaType" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-slate-800">
-                        <option value="image">Photo Showcase</option>
-                        <option value="video">Video Reel</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Image URL / Video Embed URL</label>
-                    <input type="url" id="mediaUrl" required placeholder="https://images.unsplash.com/photo-..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Description</label>
-                    <textarea id="mediaDesc" rows="2" placeholder="Tell members what you offer..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500"></textarea>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Transaction ID / MoMo Reference</label>
+                    <input type="text" id="payerTxId" required placeholder="e.g. TX-984210" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
                 </div>
 
-                <button type="submit" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold rounded-2xl text-sm transition shadow-md">
-                    Publish Media Post
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 text-white font-bold rounded-2xl text-sm transition shadow-lg shadow-gold-500/25">
+                    Submit $2 Payment & Notify Khalifa
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Mediator Admin Login Modal (Khalifa Portal) -->
+    <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-white border border-gold-300 rounded-3xl max-w-md w-full p-6 sm:p-8 relative space-y-6 shadow-2xl">
+        <div class="bg-white border border-gold-300 rounded-3xl max-w-sm w-full p-6 sm:p-8 relative space-y-6 shadow-2xl">
             <button onclick="toggleModal('adminLoginModal')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-800 p-2">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-
             <div class="text-center space-y-2">
-                <div class="w-12 h-12 rounded-2xl bg-slate-900 text-gold-400 flex items-center justify-center mx-auto border border-gold-400">
-                    <i data-lucide="shield-lock" class="w-6 h-6"></i>
+                <div class="w-14 h-14 rounded-2xl bg-slate-900 text-gold-400 flex items-center justify-center mx-auto mb-2 border border-gold-500/30">
+                    <i data-lucide="shield-check" class="w-7 h-7"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-slate-900">Mediator Login</h3>
-                <p class="text-xs text-slate-500">Restricted for Khalifa to review $2 payments & manage members.</p>
+                <h3 class="text-xl font-bold text-slate-900">Mediator Admin Portal</h3>
+                <p class="text-xs text-slate-500">Enter credentials to unlock user conversations.</p>
             </div>
-
             <form id="adminLoginForm" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Username</label>
-                    <input type="text" id="adminUser" required placeholder="Enter username" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold">
+                    <input type="text" id="adminUser" required placeholder="Username" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Passcode PIN</label>
-                    <input type="password" id="adminPass" required placeholder="••••" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold">
+                    <input type="password" id="adminPass" required placeholder="PIN" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
                 </div>
-
-                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-amber-600 text-white font-bold rounded-2xl text-sm transition shadow-lg">
-                    Access Dashboard
+                <button type="submit" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-gold-300 font-bold rounded-xl text-xs transition shadow-md border border-gold-500/30">
+                    Access Portal
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Mediator Admin Dashboard Modal -->
-    <div id="adminDashboardModal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+    <!-- Admin Dashboard Modal -->
+    <div id="adminDashboardModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
         <div class="bg-white border border-gold-300 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button onclick="toggleModal('adminDashboardModal')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-800 p-2">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-
+            
             <div class="flex items-center justify-between border-b border-slate-200 pb-4">
                 <div>
-                    <h3 class="text-2xl font-bold text-slate-900">Welcome, Mediator Khalifa</h3>
-                    <p class="text-xs text-slate-500">Platform Admin Control Panel & Revenue Ledger</p>
+                    <span class="text-xs font-bold text-gold-600 uppercase tracking-widest block">Khalifa's Portal</span>
+                    <h3 class="text-2xl font-extrabold text-slate-900">Pending Payment & Conversation Approvals</h3>
                 </div>
-                <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full">PIN: 2299 Active</span>
+                <span id="pendingCount" class="px-3 py-1 bg-amber-100 text-gold-700 rounded-full text-xs font-bold">0 Pending</span>
             </div>
 
-            <!-- Financial Details -->
-            <div class="bg-slate-900 text-white p-6 rounded-2xl border border-gold-400 space-y-4">
-                <div class="text-xs font-bold text-gold-400 uppercase tracking-wider">Your Payment Gateway Details</div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
-                        <span class="text-slate-400 block">MoMo Pay Code:</span>
-                        <span class="text-lg font-mono font-bold text-amber-300">181488</span>
-                    </div>
-                    <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
-                        <span class="text-slate-400 block">Card Account Number:</span>
-                        <span class="text-sm font-mono font-bold text-white">5273 6400 9891 9345</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Activity Ledger -->
-            <div class="space-y-3">
-                <h4 class="font-bold text-sm text-slate-800">Recent $2 Payment Confirmations</h4>
-                <div class="space-y-2 text-xs">
-                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-900 block">Connection Request #904</span>
-                            <span class="text-slate-500">MoMo Code Transfer Verified</span>
-                        </div>
-                        <span class="font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">+$2.00 Received</span>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-900 block">Connection Request #903</span>
-                            <span class="text-slate-500">Card Payment Processed</span>
-                        </div>
-                        <span class="font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">+$2.00 Received</span>
-                    </div>
-                </div>
+            <div id="adminRequestsList" class="space-y-4">
+                <!-- Populated dynamically -->
             </div>
         </div>
     </div>
 
-    <!-- JavaScript Engine -->
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div>
+                <span class="font-heading font-extrabold text-lg text-white block">NEXUS<span class="text-gold-500">LUXE</span></span>
+                <p class="text-xs text-slate-500 mt-1">Verified Mediated P2P Media Network • All Rights Reserved</p>
+            </div>
+            <div class="text-xs text-slate-400 space-y-1">
+                <p>📧 Mediator Email Alerts: <strong class="text-gold-400">khalifajmj50@gmail.com</strong></p>
+                <p>💎 MoMo: <code class="text-amber-300">181488</code> | Bank Card: <code class="text-amber-300">5273640098919345</code></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
     <script>
-        const sampleMedia = [
+        let sampleMedia = [
             {
                 author: "Sarah J. (Tech Founder)",
                 title: "Luxury Workspace & Innovation Showcase",
@@ -409,42 +397,89 @@
             },
             {
                 author: "David K. (Creative Director)",
-                title: "Digital Brand Campaign Video",
+                title: "Digital Brand Campaign Reel",
                 type: "video",
                 url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
                 desc: "Full video reel showcasing custom visual productions."
-            },
-            {
-                author: "Elena R. (Investment Lead)",
-                title: "Global Venture Studio Network",
-                type: "image",
-                url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
-                desc: "Connecting tech creators with seed funding opportunities."
             }
         ];
+
+        let pendingRequests = [
+            {
+                id: "REQ-901",
+                name: "Eric M.",
+                contact: "+250 788 123 456",
+                target: "Sarah J. (Tech Founder)",
+                txId: "TX-998124",
+                amount: "$2.00",
+                status: "Pending Approval"
+            }
+        ];
+
+        let selectedTargetMember = "General Network Member";
 
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
             renderMediaFeed();
+            renderAdminRequests();
 
             document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
                 document.getElementById('mobileMenu').classList.toggle('hidden');
             });
 
-            // Media Submission Form
+            // Handle Device File Upload
             document.getElementById('mediaForm')?.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const author = document.getElementById('mediaAuthor').value.trim();
                 const title = document.getElementById('mediaTitle').value.trim();
                 const type = document.getElementById('mediaType').value;
-                const url = document.getElementById('mediaUrl').value.trim();
                 const desc = document.getElementById('mediaDesc').value.trim();
+                const fileInput = document.getElementById('deviceFile');
 
-                if (author && title && url) {
-                    sampleMedia.unshift({ author, title, type, url, desc });
-                    renderMediaFeed();
-                    toggleModal('uploadMediaModal');
-                    document.getElementById('mediaForm').reset();
+                if (fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const fileUrl = event.target.result;
+                        sampleMedia.unshift({ author, title, type, url: fileUrl, desc });
+                        renderMediaFeed();
+                        toggleModal('uploadMediaModal');
+                        document.getElementById('mediaForm').reset();
+                        alert(`Media successfully uploaded from your device and published to the feed!`);
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            });
+
+            // Payment Confirmation Submission
+            document.getElementById('paymentConfirmForm')?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('payerName').value.trim();
+                const contact = document.getElementById('payerContact').value.trim();
+                const txId = document.getElementById('payerTxId').value.trim();
+
+                if (name && contact && txId) {
+                    const newReq = {
+                        id: `REQ-${Math.floor(100 + Math.random() * 900)}`,
+                        name,
+                        contact,
+                        target: selectedTargetMember,
+                        txId,
+                        amount: "$2.00",
+                        status: "Pending Approval"
+                    };
+
+                    pendingRequests.unshift(newReq);
+                    renderAdminRequests();
+
+                    // Dispatch Email Notification to khalifajmj50@gmail.com
+                    const emailSubject = encodeURIComponent(`⚡ New $2 Connection Payment from ${name} (TxID: ${txId})`);
+                    const emailBody = encodeURIComponent(`Hello Mediator Khalifa,\n\nA new member has submitted a $2 connection payment on Nexus Luxe.\n\nPayer Name: ${name}\nContact/WhatsApp: ${contact}\nTarget Connection: ${selectedTargetMember}\nTransaction Reference ID: ${txId}\nAmount Paid: $2.00 USD\n\nPlease log into your Mediator Admin Portal (Username: khalifa, PIN: 2299) to verify the payment and unlock their conversation instantly.`);
+                    
+                    window.open(`mailto:khalifajmj50@gmail.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
+
+                    alert(`Payment notification successfully dispatched to khalifajmj50@gmail.com! Mediator Khalifa will verify your $2 payment and unlock your chat in the portal.`);
+                    toggleModal('paymentModal');
+                    document.getElementById('paymentConfirmForm').reset();
                 }
             });
 
@@ -457,12 +492,19 @@
                 if (user === 'khalifa' && pass === '2299') {
                     toggleModal('adminLoginModal');
                     toggleModal('adminDashboardModal');
+                    renderAdminRequests();
                     document.getElementById('adminLoginForm').reset();
                 } else {
                     alert('Invalid Mediator Credentials. Access Denied.');
                 }
             });
         });
+
+        function shareToFacebook() {
+            const shareUrl = encodeURIComponent(window.location.href);
+            const shareText = encodeURIComponent("Join Nexus Luxe – Upload your photos & videos from your device, and connect with global peers mediated by Khalifa!");
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`, '_blank');
+        }
 
         function renderMediaFeed() {
             const grid = document.getElementById('mediaFeedGrid');
@@ -471,9 +513,13 @@
             grid.innerHTML = sampleMedia.map((m) => `
                 <div class="bg-white rounded-3xl overflow-hidden border border-amber-200 shadow-lg flex flex-col justify-between">
                     <div>
-                        <div class="relative h-56 bg-slate-900 overflow-hidden">
-                            <img src="${m.url}" alt="${m.title}" class="w-full h-full object-cover hover:scale-105 transition duration-500">
-                            <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-amber-300 font-bold text-xs uppercase flex items-center gap-1 border border-gold-400/40">
+                        <div class="relative h-60 bg-slate-900 overflow-hidden">
+                            ${m.type === 'video' ? `
+                                <video src="${m.url}" controls class="w-full h-full object-cover"></video>
+                            ` : `
+                                <img src="${m.url}" alt="${m.title}" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                            `}
+                            <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md text-amber-300 font-bold text-xs uppercase flex items-center gap-1 border border-gold-400/40">
                                 <i data-lucide="${m.type === 'video' ? 'video' : 'image'}" class="w-3.5 h-3.5 text-gold-400"></i> ${m.type}
                             </span>
                         </div>
@@ -496,12 +542,59 @@
             if (window.lucide) lucide.createIcons();
         }
 
-        function openPaymentModal(targetName) {
-            toggleModal('paymentModal');
+        function renderAdminRequests() {
+            const list = document.getElementById('adminRequestsList');
+            const counter = document.getElementById('pendingCount');
+            if (!list) return;
+
+            const pending = pendingRequests.filter(r => r.status === "Pending Approval");
+            if (counter) counter.innerText = `${pending.length} Pending`;
+
+            if (pendingRequests.length === 0) {
+                list.innerHTML = `<p class="text-slate-400 italic">No connection requests logged yet.</p>`;
+                return;
+            }
+
+            list.innerHTML = pendingRequests.map(r => `
+                <div class="p-4 rounded-2xl ${r.status === 'Unlocked & Approved' ? 'bg-emerald-50/60 border border-emerald-200' : 'bg-amber-50/60 border border-gold-300'} space-y-2">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="font-bold text-slate-900 text-sm block">${r.name} ➔ ${r.target}</span>
+                            <span class="text-[11px] text-slate-500">Contact: <strong class="text-slate-800">${r.contact}</strong> | TxID: <code class="text-amber-700">${r.txId}</code></span>
+                        </div>
+                        <span class="font-bold ${r.status === 'Unlocked & Approved' ? 'text-emerald-700 bg-emerald-100' : 'text-amber-800 bg-amber-100'} px-2.5 py-1 rounded-lg text-[11px]">
+                            ${r.status}
+                        </span>
+                    </div>
+
+                    ${r.status === 'Pending Approval' ? `
+                        <button onclick="approveRequest('${r.id}')" class="w-full py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 text-white font-bold rounded-xl text-xs transition shadow-md flex items-center justify-center gap-1.5">
+                            <i data-lucide="unlock" class="w-3.5 h-3.5"></i>
+                            <span>Unlock & Approve Conversation ($2 Verified)</span>
+                        </button>
+                    ` : `
+                        <div class="p-2 bg-white rounded-xl border border-emerald-200 text-[11px] text-emerald-800 font-semibold flex items-center justify-between">
+                            <span>✅ Conversation Unlocked & Direct Access Granted</span>
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                        </div>
+                    `}
+                </div>
+            `).join('');
+
+            if (window.lucide) lucide.createIcons();
         }
 
-        function confirmPayment() {
-            alert('Your payment confirmation has been sent to Mediator Khalifa! Contact credentials will be unblocked upon instant verification.');
+        function approveRequest(reqId) {
+            const req = pendingRequests.find(r => r.id === reqId);
+            if (req) {
+                req.status = "Unlocked & Approved";
+                renderAdminRequests();
+                alert(`Success! Conversation between ${req.name} and ${req.target} has been unlocked!`);
+            }
+        }
+
+        function openPaymentModal(targetName) {
+            selectedTargetMember = targetName;
             toggleModal('paymentModal');
         }
 
