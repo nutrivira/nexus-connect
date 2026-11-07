@@ -1,0 +1,940 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Users, Shield, Lock, Unlock, CheckCircle2, XCircle, CreditCard, 
+  Smartphone, Upload, Image, Video, Sparkles, Filter, Search, 
+  ChevronRight, MessageSquare, AlertCircle, Eye, RefreshCw, UserCheck,
+  Check, X, ArrowUpRight, DollarSign, Heart, Award, Layers, LogIn, LogOut, Key
+} from 'lucide-react';
+
+export default function App() {
+  // Navigation State: 'explore' | 'upload' | 'admin'
+  const [activeTab, setActiveTab] = useState('explore');
+  
+  // Admin Auth State
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [showAdminLoginModal, setShowAdminLoginModal] = useState(false);
+  const [adminUsernameInput, setAdminUsernameInput] = useState('');
+  const [adminPasscodeInput, setAdminPasscodeInput] = useState('');
+  const [adminAuthError, setAdminAuthError] = useState('');
+
+  // Admin Search Query inside Admin Space
+  const [adminSearchQuery, setAdminSearchQuery] = useState('');
+
+  // Handle Tab Switch with Admin Authentication Guard
+  const handleTabChange = (tab) => {
+    if (tab === 'admin' && !isAdminAuthenticated) {
+      setShowAdminLoginModal(true);
+    } else {
+      setActiveTab(tab);
+    }
+  };
+
+  // Handle Admin Login Verification
+  const handleAdminLogin = (e) => {
+    e.preventDefault();
+    if (adminUsernameInput.trim() === 'khalifa' && adminPasscodeInput.trim() === '2299') {
+      setIsAdminAuthenticated(true);
+      setShowAdminLoginModal(false);
+      setAdminAuthError('');
+      setActiveTab('admin');
+      setAdminUsernameInput('');
+      setAdminPasscodeInput('');
+    } else {
+      setAdminAuthError('Invalid credentials. Access denied.');
+    }
+  };
+
+  const handleAdminLogout = () => {
+    setIsAdminAuthenticated(false);
+    setActiveTab('explore');
+  };
+
+  // Simulated Romantic Profiles Database
+  const [profiles, setProfiles] = useState([
+    {
+      id: 'usr-101',
+      name: 'Elena Rostova',
+      role: 'Fashion Designer & Traveler',
+      location: 'Zurich, Switzerland',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
+      bio: 'Seeking genuine romance, fine dining, and spontaneous weekend getaways. Let’s connect!',
+      tags: ['Romance', 'Travel', 'Fine Dining'],
+      media: [
+        { id: 'm1', type: 'image', title: 'Sunset in Zurich', url: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&auto=format&fit=crop&q=80', isPrivate: false },
+        { id: 'm2', type: 'video', title: 'Private Evening Diary', url: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80', isPrivate: true },
+        { id: 'm3', type: 'image', title: 'VIP Gala Night', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80', isPrivate: true }
+      ]
+    },
+    {
+      id: 'usr-102',
+      name: 'Marcus Vance',
+      role: 'Entrepreneur & Fitness Enthusiast',
+      location: 'Singapore',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',
+      bio: 'Passionate about deep conversations, wine tasting, and finding a meaningful partner.',
+      tags: ['Matchmaking', 'Fitness', 'Wine Tasting'],
+      media: [
+        { id: 'm4', type: 'image', title: 'Beach Day Vibes', url: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&auto=format&fit=crop&q=80', isPrivate: false },
+        { id: 'm5', type: 'video', title: 'Private Video Introduction', url: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&auto=format&fit=crop&q=80', isPrivate: true }
+      ]
+    },
+    {
+      id: 'usr-103',
+      name: 'Dr. Sophia Chen',
+      role: 'Art Collector & Wellness Coach',
+      location: 'Boston, USA',
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80',
+      bio: 'Looking for a thoughtful partner to share quiet moments and romantic adventures.',
+      tags: ['Wellness', 'Art', 'Romance'],
+      media: [
+        { id: 'm6', type: 'image', title: 'Cozy Fireside Evening', url: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&auto=format&fit=crop&q=80', isPrivate: false },
+        { id: 'm7', type: 'image', title: 'Exclusive Portfolio Photos', url: 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?w=600&auto=format&fit=crop&q=80', isPrivate: true }
+      ]
+    }
+  ]);
+
+  // Current Logged In User state (Demo Simulator)
+  const currentUser = {
+    id: 'usr-you',
+    name: 'You (Alex Rivera)',
+    email: 'alex.rivera@network.io',
+    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=80'
+  };
+
+  // Connection Requests Managed by Admin Mediator
+  const [connectionRequests, setConnectionRequests] = useState([
+    {
+      id: 'req-8801',
+      requesterId: 'usr-you',
+      requesterName: 'Alex Rivera',
+      targetId: 'usr-101',
+      targetName: 'Elena Rostova',
+      targetAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
+      feePaid: 2.00,
+      paymentMethod: 'MoMo (Code: 181488)',
+      status: 'pending', // 'pending' | 'approved' | 'rejected'
+      requestedAt: '10 mins ago',
+      contactInfoUnlocked: { phone: '+41 79 492 0182', email: 'elena@rostovastudio.com' }
+    }
+  ]);
+
+  // Modal State for Connection & Payment
+  const [selectedTarget, setSelectedTarget] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState('momo');
+  const [cardDetails, setCardDetails] = useState({
+    number: '5273640098919345',
+    expiry: '04/27',
+    cvv: '***'
+  });
+  const [momoCodeInput, setMomoCodeInput] = useState('181488');
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [paymentSuccessMsg, setPaymentSuccessMsg] = useState(false);
+
+  // Upload Hub State
+  const [uploadTitle, setUploadTitle] = useState('');
+  const [uploadType, setUploadType] = useState('image');
+  const [uploadPrivacy, setUploadPrivacy] = useState(false);
+  const [uploadPreview, setUploadPreview] = useState(null);
+  const [userUploadedMedia, setUserUploadedMedia] = useState([
+    { id: 'my-1', type: 'image', title: 'Sunset Evening Walk', url: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&auto=format&fit=crop&q=80', isPrivate: false },
+    { id: 'my-2', type: 'video', title: 'Private Video Message', url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80', isPrivate: true }
+  ]);
+
+  // Search Filter
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Handle Payment & Request Submission
+  const handlePayAndRequest = (e) => {
+    e.preventDefault();
+    setIsProcessingPayment(true);
+
+    setTimeout(() => {
+      setIsProcessingPayment(false);
+      setPaymentSuccessMsg(true);
+
+      const newRequest = {
+        id: `req-${Date.now().toString().slice(-4)}`,
+        requesterId: currentUser.id,
+        requesterName: currentUser.name,
+        targetId: selectedTarget.id,
+        targetName: selectedTarget.name,
+        targetAvatar: selectedTarget.avatar,
+        feePaid: 2.00,
+        paymentMethod: paymentMethod === 'momo' ? `MoMo (Code: ${momoCodeInput})` : 'Bank Card (5273 **** 9345)',
+        status: 'pending',
+        requestedAt: 'Just now',
+        contactInfoUnlocked: { phone: '+1 (555) 019-2834', email: `${selectedTarget.name.toLowerCase().replace(' ', '.')}@private-network.com` }
+      };
+
+      setConnectionRequests(prev => [newRequest, ...prev]);
+
+      setTimeout(() => {
+        setPaymentSuccessMsg(false);
+        setSelectedTarget(null);
+      }, 2000);
+    }, 1500);
+  };
+
+  // Handle Admin Action (Approve / Reject)
+  const handleAdminAction = (reqId, action) => {
+    setConnectionRequests(prev => 
+      prev.map(req => req.id === reqId ? { ...req, status: action } : req)
+    );
+  };
+
+  // Handle Dynamic File Upload Simulation
+  const handleSimulatedUpload = (e) => {
+    e.preventDefault();
+    if (!uploadTitle) return;
+
+    const sampleImages = [
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80'
+    ];
+
+    const newMediaItem = {
+      id: `my-${Date.now()}`,
+      type: uploadType,
+      title: uploadTitle,
+      url: uploadPreview || sampleImages[Math.floor(Math.random() * sampleImages.length)],
+      isPrivate: uploadPrivacy
+    };
+
+    setUserUploadedMedia([newMediaItem, ...userUploadedMedia]);
+    setUploadTitle('');
+    setUploadPreview(null);
+  };
+
+  const filteredProfiles = profiles.filter(p => 
+    p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    p.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
+  return (
+    <div className="min-h-screen bg-rose-50/40 text-slate-800 font-sans selection:bg-rose-500 selection:text-white">
+      {/* Top Banner Navigation */}
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-rose-100 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          
+          {/* Logo & Brand */}
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rose-500 via-pink-500 to-amber-400 flex items-center justify-center text-white shadow-md shadow-rose-500/20">
+              <Heart className="w-5 h-5 fill-white" />
+            </div>
+            <div>
+              <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-rose-600 via-pink-600 to-amber-500 bg-clip-text text-transparent">
+                ROMANCE<span className="font-light text-slate-700">Connect</span>
+              </span>
+              <span className="hidden sm:inline-block ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-600 border border-rose-100 uppercase tracking-wider">
+                Mediated Dating Network
+              </span>
+            </div>
+          </div>
+
+          {/* Nav Tabs */}
+          <nav className="flex items-center space-x-1 sm:space-x-2">
+            <button
+              onClick={() => handleTabChange('explore')}
+              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center space-x-1.5 ${
+                activeTab === 'explore'
+                  ? 'bg-rose-600 text-white shadow-md shadow-rose-600/20'
+                  : 'text-slate-600 hover:bg-rose-50 hover:text-rose-900'
+              }`}
+            >
+              <Heart className="w-4 h-4" />
+              <span>Explore Matches</span>
+            </button>
+
+            <button
+              onClick={() => handleTabChange('upload')}
+              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center space-x-1.5 ${
+                activeTab === 'upload'
+                  ? 'bg-rose-600 text-white shadow-md shadow-rose-600/20'
+                  : 'text-slate-600 hover:bg-rose-50 hover:text-rose-900'
+              }`}
+            >
+              <Upload className="w-4 h-4" />
+              <span>Media Gallery</span>
+            </button>
+
+            <button
+              onClick={() => handleTabChange('admin')}
+              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center space-x-1.5 relative ${
+                activeTab === 'admin'
+                  ? 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-md shadow-rose-600/20'
+                  : 'text-slate-600 hover:bg-rose-50 hover:text-rose-600'
+              }`}
+            >
+              <Shield className="w-4 h-4" />
+              <span>{isAdminAuthenticated ? 'Cupid Mediator Space' : 'Admin Portal'}</span>
+              {connectionRequests.filter(r => r.status === 'pending').length > 0 && (
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping absolute top-1.5 right-1.5" />
+              )}
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      {/* Main Container */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        {/* 1. EXPLORE NETWORK TAB */}
+        {activeTab === 'explore' && (
+          <div className="space-y-8 animate-fade-in">
+            {/* Hero / Filter Bar */}
+            <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-500 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-indigo-500/10 relative overflow-hidden">
+              <div className="max-w-2xl relative z-10">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md uppercase tracking-wider text-white">
+                  Exclusive Mediated Access
+                </span>
+                <h1 className="text-3xl sm:text-4xl font-extrabold mt-3 tracking-tight">
+                  Connect With Verified Members
+                </h1>
+                <p className="mt-2 text-indigo-100 text-sm sm:text-base leading-relaxed">
+                  Browse private photo & video portfolios. Submit connection requests with a standard $2.00 verification fee. All introductions are personally mediated for safety.
+                </p>
+
+                {/* Search Input */}
+                <div className="mt-6 flex items-center bg-white rounded-2xl p-2 shadow-lg max-w-md">
+                  <Search className="w-5 h-5 text-slate-400 ml-2" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search by name, role, or skill tag..."
+                    className="w-full px-3 py-1.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none"
+                  />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery('')} className="p-1 text-slate-400 hover:text-slate-600">
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="absolute right-[-40px] bottom-[-40px] opacity-15 pointer-events-none">
+                <Users className="w-80 h-80 text-white" />
+              </div>
+            </div>
+
+            {/* User Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredProfiles.map((user) => {
+                const pendingReq = connectionRequests.find(r => r.targetId === user.id && r.status === 'pending');
+                const approvedReq = connectionRequests.find(r => r.targetId === user.id && r.status === 'approved');
+
+                return (
+                  <div key={user.id} className="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                    <div>
+                      {/* Card Header & Avatar */}
+                      <div className="p-6 pb-4 flex items-start space-x-4 border-b border-slate-100">
+                        <div className="relative">
+                          <img 
+                            src={user.avatar} 
+                            alt={user.name} 
+                            className="w-16 h-16 rounded-2xl object-cover ring-2 ring-indigo-500/20 group-hover:ring-indigo-500 transition-all duration-300"
+                          />
+                          <span className="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-bold text-slate-900 truncate group-hover:text-indigo-600 transition-colors">
+                            {user.name}
+                          </h3>
+                          <p className="text-xs font-semibold text-slate-500 truncate">{user.role}</p>
+                          <p className="text-[11px] text-slate-400 mt-1 flex items-center">
+                            <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mr-1.5" />
+                            {user.location}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Bio */}
+                      <div className="px-6 py-4">
+                        <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">
+                          {user.bio}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 mt-3">
+                          {user.tags.map((t, idx) => (
+                            <span key={idx} className="text-[10px] font-semibold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600">
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Photo & Video Showcase */}
+                      <div className="px-6 py-3 bg-slate-50/60 border-t border-b border-slate-100">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Media Showcase</span>
+                          <span className="text-[10px] text-slate-500">{user.media.length} items</span>
+                        </div>
+                        
+                        <div className="grid grid-cols-3 gap-2">
+                          {user.media.map((item) => (
+                            <div key={item.id} className="relative rounded-xl overflow-hidden aspect-square bg-slate-200 group/item">
+                              <img src={item.url} alt={item.title} className="w-full h-full object-cover" />
+                              
+                              {/* Media Type Icon Badge */}
+                              <div className="absolute top-1 left-1 p-1 rounded-md bg-black/40 text-white backdrop-blur-sm">
+                                {item.type === 'video' ? <Video className="w-3 h-3" /> : <Image className="w-3 h-3" />}
+                              </div>
+
+                              {/* Lock / Unlock Overlay */}
+                              {item.isPrivate && !approvedReq ? (
+                                <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-xs flex flex-col items-center justify-center text-white p-2 text-center group-hover/item:bg-slate-900/80 transition-all">
+                                  <Lock className="w-5 h-5 text-amber-400 mb-1" />
+                                  <span className="text-[9px] font-bold uppercase tracking-wider text-amber-300">Private</span>
+                                </div>
+                              ) : (
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity p-2 flex items-end">
+                                  <span className="text-[10px] font-semibold text-white truncate">{item.title}</span>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Card Footer CTA */}
+                      <div className="p-6 pt-4">
+                        {approvedReq ? (
+                          <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs">
+                            <div className="flex items-center space-x-1.5 font-bold mb-1">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                              <span>Connection Approved</span>
+                            </div>
+                            <p className="text-[11px] text-emerald-700">Phone: {approvedReq.contactInfoUnlocked.phone}</p>
+                            <p className="text-[11px] text-emerald-700">Email: {approvedReq.contactInfoUnlocked.email}</p>
+                          </div>
+                        ) : pendingReq ? (
+                          <div className="w-full py-2.5 px-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold flex items-center justify-center space-x-2">
+                            <RefreshCw className="w-4 h-4 text-amber-600 animate-spin" />
+                            <span>Request Pending Mediator Approval</span>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => setSelectedTarget(user)}
+                            className="w-full py-2.5 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-600/20 transition-all flex items-center justify-center space-x-1.5"
+                          >
+                            <span>Request Connection</span>
+                            <span className="px-2 py-0.5 rounded-full bg-white/20 text-[10px]">$2.00</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* 2. MEDIA HUB UPLOAD TAB */}
+        {activeTab === 'upload' && (
+          <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+              <h2 className="text-xl font-bold text-slate-900 mb-1">Upload Media to Your Profile</h2>
+              <p className="text-xs text-slate-500 mb-6">Share public portfolio highlights or lock private content behind connection requests.</p>
+              
+              <form onSubmit={handleSimulatedUpload} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Media Title</label>
+                  <input
+                    type="text"
+                    required
+                    value={uploadTitle}
+                    onChange={(e) => setUploadTitle(e.target.value)}
+                    placeholder="e.g., Exlusive Studio Showcase"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Type</label>
+                    <select
+                      value={uploadType}
+                      onChange={(e) => setUploadType(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+                    >
+                      <option value="image">Photo / Image</option>
+                      <option value="video">Video Presentation</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Privacy Level</label>
+                    <select
+                      value={uploadPrivacy ? 'true' : 'false'}
+                      onChange={(e) => setUploadPrivacy(e.target.value === 'true')}
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+                    >
+                      <option value="false">Public (Everyone can see)</option>
+                      <option value="true">Private (Approved requests only)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-3 px-4 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-600/20 transition-all flex items-center justify-center space-x-2"
+                >
+                  <Upload className="w-4 h-4" />
+                  <span>Publish Media</span>
+                </button>
+              </form>
+            </div>
+
+            {/* Uploaded Gallery */}
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">Your Uploaded Library</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {userUploadedMedia.map((item) => (
+                  <div key={item.id} className="relative rounded-2xl overflow-hidden aspect-square border border-slate-200 group">
+                    <img src={item.url} alt={item.title} className="w-full h-full object-cover" />
+                    <div className="absolute top-2 left-2 p-1.5 rounded-lg bg-slate-900/60 text-white backdrop-blur-sm">
+                      {item.type === 'video' ? <Video className="w-3.5 h-3.5" /> : <Image className="w-3.5 h-3.5" />}
+                    </div>
+                    {item.isPrivate && (
+                      <div className="absolute top-2 right-2 p-1.5 rounded-lg bg-amber-500 text-white shadow-sm">
+                        <Lock className="w-3.5 h-3.5" />
+                      </div>
+                    )}
+                    <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent text-white">
+                      <p className="text-xs font-bold truncate">{item.title}</p>
+                      <span className="text-[10px] text-slate-300 capitalize">{item.isPrivate ? 'Private' : 'Public'}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 3. ADMIN MEDIATOR CONTROL PANEL & SPACE DISPLAY */}
+        {activeTab === 'admin' && isAdminAuthenticated && (
+          <div className="space-y-8 animate-fade-in">
+            {/* Header Banner & Admin Info */}
+            <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+              <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                <div>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2.5 rounded-2xl bg-rose-500/20 text-rose-400 border border-rose-500/30">
+                      <Shield className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <h2 className="text-2xl font-bold">Mediator Space: Khalifa</h2>
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                          AUTHENTICATED
+                        </span>
+                      </div>
+                      <p className="text-slate-400 text-xs sm:text-sm mt-0.5">
+                        Central management node for matching, verification, and payment mediation across 100,000+ members.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-3">
+                  <button
+                    onClick={handleAdminLogout}
+                    className="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all flex items-center space-x-2 border border-white/10"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Exit Admin Space</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Background Accent */}
+              <div className="absolute right-[-20px] top-[-20px] w-64 h-64 rounded-full bg-rose-500/10 blur-3xl pointer-events-none" />
+            </div>
+
+            {/* Space Operational Metrics Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                <div className="p-3 rounded-2xl bg-indigo-50 text-indigo-600">
+                  <Users className="w-6 h-6" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Registered Users</span>
+                  <div className="text-2xl font-extrabold text-slate-900 mt-0.5">100,482</div>
+                  <span className="text-[10px] font-semibold text-emerald-600 flex items-center mt-0.5">
+                    <ArrowUpRight className="w-3 h-3 mr-0.5" /> +1,240 this week
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                <div className="p-3 rounded-2xl bg-emerald-50 text-emerald-600">
+                  <DollarSign className="w-6 h-6" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Revenue ($2 Fee)</span>
+                  <div className="text-2xl font-extrabold text-emerald-600 mt-0.5">
+                    ${((connectionRequests.length + 1542) * 2).toFixed(2)}
+                  </div>
+                  <span className="text-[10px] font-semibold text-slate-400 mt-0.5 block">
+                    100% Admin Retained
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                <div className="p-3 rounded-2xl bg-amber-50 text-amber-600">
+                  <RefreshCw className="w-6 h-6 animate-spin" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pending Reviews</span>
+                  <div className="text-2xl font-extrabold text-amber-600 mt-0.5">
+                    {connectionRequests.filter(r => r.status === 'pending').length} Requests
+                  </div>
+                  <span className="text-[10px] font-semibold text-amber-700 mt-0.5 block">
+                    Requires Mediator Action
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                <div className="p-3 rounded-2xl bg-purple-50 text-purple-600">
+                  <UserCheck className="w-6 h-6" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Approved Introductions</span>
+                  <div className="text-2xl font-extrabold text-slate-900 mt-0.5">
+                    {connectionRequests.filter(r => r.status === 'approved').length + 849}
+                  </div>
+                  <span className="text-[10px] font-semibold text-purple-600 mt-0.5 block">
+                    Active Connections
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Connection Requests Queue Space */}
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900">Mediator Action Queue</h3>
+                  <p className="text-xs text-slate-500">Inspect payments, member profiles, and approve intro access.</p>
+                </div>
+
+                <div className="flex items-center space-x-3 w-full sm:w-auto">
+                  {/* Search filter in admin space */}
+                  <div className="relative flex-1 sm:flex-initial">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                    <input
+                      type="text"
+                      value={adminSearchQuery}
+                      onChange={(e) => setAdminSearchQuery(e.target.value)}
+                      placeholder="Filter requests..."
+                      className="w-full sm:w-48 pl-9 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  <span className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 whitespace-nowrap">
+                    {connectionRequests.filter(r => r.status === 'pending').length} Pending
+                  </span>
+                </div>
+              </div>
+
+              {connectionRequests.filter(req => 
+                req.requesterName.toLowerCase().includes(adminSearchQuery.toLowerCase()) ||
+                req.targetName.toLowerCase().includes(adminSearchQuery.toLowerCase()) ||
+                req.id.toLowerCase().includes(adminSearchQuery.toLowerCase())
+              ).length === 0 ? (
+                <div className="p-12 text-center text-slate-400">
+                  <UserCheck className="w-12 h-12 mx-auto mb-3 text-slate-300" />
+                  <p className="text-sm">No matching connection requests found in mediator space.</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-slate-100">
+                  {connectionRequests
+                    .filter(req => 
+                      req.requesterName.toLowerCase().includes(adminSearchQuery.toLowerCase()) ||
+                      req.targetName.toLowerCase().includes(adminSearchQuery.toLowerCase()) ||
+                      req.id.toLowerCase().includes(adminSearchQuery.toLowerCase())
+                    )
+                    .map((req) => (
+                    <div key={req.id} className="p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:bg-slate-50/50 transition-colors">
+                      {/* Details */}
+                      <div className="flex items-start space-x-4">
+                        <img src={req.targetAvatar} alt={req.targetName} className="w-12 h-12 rounded-2xl object-cover ring-2 ring-rose-500/20" />
+                        <div>
+                          <div className="flex items-center space-x-2">
+                            <span className="text-xs font-bold text-slate-900">{req.requesterName}</span>
+                            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                            <span className="text-xs font-bold text-indigo-600">{req.targetName}</span>
+                            <span className="text-[10px] text-slate-400 font-mono">[{req.id}]</span>
+                          </div>
+                          <p className="text-xs text-slate-500 mt-0.5">Requested {req.requestedAt}</p>
+                          
+                          {/* Payment Verified Tag */}
+                          <div className="flex items-center space-x-2 mt-2">
+                            <span className="inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200">
+                              <DollarSign className="w-3 h-3 mr-0.5" /> Paid ${req.feePaid.toFixed(2)}
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-mono">
+                              via {req.paymentMethod}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Status / Action Buttons */}
+                      <div className="w-full md:w-auto flex items-center justify-end space-x-3">
+                        {req.status === 'pending' ? (
+                          <>
+                            <button
+                              onClick={() => handleAdminAction(req.id, 'rejected')}
+                              className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center space-x-1"
+                            >
+                              <X className="w-4 h-4 text-slate-500" />
+                              <span>Reject</span>
+                            </button>
+                            <button
+                              onClick={() => handleAdminAction(req.id, 'approved')}
+                              className="px-5 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 shadow-md shadow-emerald-500/20 transition-all flex items-center space-x-1.5"
+                            >
+                              <Check className="w-4 h-4" />
+                              <span>Approve Connection</span>
+                            </button>
+                          </>
+                        ) : req.status === 'approved' ? (
+                          <span className="inline-flex items-center text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
+                            <CheckCircle2 className="w-4 h-4 mr-1.5 text-emerald-500" />
+                            Approved & Contact Shared
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-xl">
+                            <XCircle className="w-4 h-4 mr-1.5 text-slate-400" />
+                            Request Rejected
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </main>
+
+      {/* 5. ADMIN AUTHENTICATION LOGIN MODAL */}
+      {showAdminLoginModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-6 sm:p-8 border border-slate-100 shadow-2xl relative">
+            <button
+              onClick={() => {
+                setShowAdminLoginModal(false);
+                setAdminAuthError('');
+              }}
+              className="absolute top-5 right-5 p-1.5 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="text-center mb-6">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-500 to-amber-500 text-white flex items-center justify-center mx-auto mb-3 shadow-lg shadow-rose-500/20">
+                <Shield className="w-7 h-7" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Admin Portal Access</h3>
+              <p className="text-xs text-slate-500 mt-1">Enter your admin credentials to open your mediator space.</p>
+            </div>
+
+            {adminAuthError && (
+              <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center space-x-2">
+                <AlertCircle className="w-4 h-4 text-rose-500 flex-shrink-0" />
+                <span>{adminAuthError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleAdminLogin} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
+                  Username
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    required
+                    value={adminUsernameInput}
+                    onChange={(e) => setAdminUsernameInput(e.target.value)}
+                    placeholder="Enter username"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
+                  Passcode
+                </label>
+                <div className="relative">
+                  <input
+                    type="password"
+                    required
+                    value={adminPasscodeInput}
+                    onChange={(e) => setAdminPasscodeInput(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 shadow-md shadow-rose-500/20 transition-all flex items-center justify-center space-x-2"
+              >
+                <LogIn className="w-4 h-4" />
+                <span>Login to Admin Space</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* 4. PAYMENT & CONNECTION MODAL */}
+      {selectedTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 border border-slate-100 shadow-2xl relative">
+            
+            <button
+              onClick={() => setSelectedTarget(null)}
+              className="absolute top-5 right-5 p-1.5 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {paymentSuccessMsg ? (
+              <div className="text-center py-8 space-y-3">
+                <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto animate-bounce">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900">Payment Submitted!</h3>
+                <p className="text-xs text-slate-500 max-w-xs mx-auto">
+                  Your $2.00 fee is processed. The request was sent to the Admin Mediator queue for final approval.
+                </p>
+              </div>
+            ) : (
+              <div>
+                <div className="flex items-center space-x-3 mb-4">
+                  <img src={selectedTarget.avatar} alt={selectedTarget.name} className="w-12 h-12 rounded-2xl object-cover" />
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-base">Request Access to {selectedTarget.name}</h3>
+                    <p className="text-xs text-slate-500">Required Mediation & Verification Fee: <span className="font-bold text-indigo-600">$2.00 USD</span></p>
+                  </div>
+                </div>
+
+                <form onSubmit={handlePayAndRequest} className="space-y-4 mt-6">
+                  {/* Payment Method Selector */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                      Select Payment Method
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod('momo')}
+                        className={`p-3 rounded-2xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition-all ${
+                          paymentMethod === 'momo'
+                            ? 'bg-amber-50 border-amber-500 text-amber-900 ring-2 ring-amber-500/20'
+                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                        }`}
+                      >
+                        <Smartphone className="w-5 h-5 text-amber-500" />
+                        <span>MoMo Code</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod('card')}
+                        className={`p-3 rounded-2xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition-all ${
+                          paymentMethod === 'card'
+                            ? 'bg-indigo-50 border-indigo-500 text-indigo-900 ring-2 ring-indigo-500/20'
+                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                        }`}
+                      >
+                        <CreditCard className="w-5 h-5 text-indigo-500" />
+                        <span>Bank Card</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* MoMo Input */}
+                  {paymentMethod === 'momo' && (
+                    <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/80 space-y-2">
+                      <label className="block text-xs font-bold text-amber-900">
+                        Merchant MoMo Code
+                      </label>
+                      <input
+                        type="text"
+                        value={momoCodeInput}
+                        onChange={(e) => setMomoCodeInput(e.target.value)}
+                        className="w-full px-3 py-2 rounded-xl border border-amber-300 font-mono text-sm font-bold text-amber-900 bg-white focus:outline-none"
+                      />
+                      <p className="text-[10px] text-amber-700">Enter MoMo confirmation code to process $2.00 fee.</p>
+                    </div>
+                  )}
+
+                  {/* Bank Card Input */}
+                  {paymentMethod === 'card' && (
+                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                      <div>
+                        <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1">Card Number</label>
+                        <input
+                          type="text"
+                          value={cardDetails.number}
+                          onChange={(e) => setCardDetails({ ...cardDetails, number: e.target.value })}
+                          className="w-full px-3 py-1.5 rounded-lg border border-slate-200 font-mono text-xs focus:outline-none"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1">Expiry</label>
+                          <input
+                            type="text"
+                            value={cardDetails.expiry}
+                            onChange={(e) => setCardDetails({ ...cardDetails, expiry: e.target.value })}
+                            className="w-full px-3 py-1.5 rounded-lg border border-slate-200 font-mono text-xs focus:outline-none"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1">CVV Security</label>
+                          <input
+                            type="password"
+                            value={cardDetails.cvv}
+                            onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
+                            className="w-full px-3 py-1.5 rounded-lg border border-slate-200 font-mono text-xs focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isProcessingPayment}
+                    className="w-full py-3.5 px-4 rounded-2xl text-xs font-bold text-white bg-gradient-to-r from-indigo-600 via-rose-500 to-amber-500 hover:opacity-95 shadow-lg transition-all flex items-center justify-center space-x-2"
+                  >
+                    {isProcessingPayment ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        <span>Verifying $2 Payment...</span>
+                      </>
+                    ) : (
+                      <span>Pay $2.00 & Send Request</span>
+                    )}
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
