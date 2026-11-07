@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -258,13 +258,29 @@
                 </div>
 
                 <div class="p-3 bg-amber-500/10 rounded-xl border border-gold-500/20 text-[11px] text-amber-200">
-                    💡 After completing your transfer, click below to confirm. Mediator Khalifa will unlock contact numbers immediately.
+                    💡 After completing your transfer, fill in your details below and submit. Mediator Khalifa will unlock your chat & contact credentials in the admin portal.
                 </div>
             </div>
 
-            <button onclick="confirmPayment()" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-white font-bold rounded-2xl text-sm transition shadow-lg shadow-gold-500/25">
-                I Have Paid $2 (Submit Confirmation)
-            </button>
+            <!-- Form for Payment Confirmation Details -->
+            <form id="paymentConfirmForm" class="space-y-3 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Full Name / Username</label>
+                    <input type="text" id="payerName" required placeholder="e.g. Jean-Luc / Creator" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Phone / WhatsApp Number</label>
+                    <input type="tel" id="payerContact" required placeholder="+250 78... or Email" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Transaction ID / MoMo Reference</label>
+                    <input type="text" id="payerTxId" required placeholder="e.g. TX-984210" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-gold-500">
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-white font-bold rounded-2xl text-sm transition shadow-lg shadow-gold-500/25">
+                    Submit $2 Payment Confirmation
+                </button>
+            </form>
         </div>
     </div>
 
@@ -374,24 +390,15 @@
                 </div>
             </div>
 
-            <!-- Activity Ledger -->
+            <!-- Pending Requests & Conversation Approvals -->
             <div class="space-y-3">
-                <h4 class="font-bold text-sm text-slate-800">Recent $2 Payment Confirmations</h4>
-                <div class="space-y-2 text-xs">
-                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-900 block">Connection Request #904</span>
-                            <span class="text-slate-500">MoMo Code Transfer Verified</span>
-                        </div>
-                        <span class="font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">+$2.00 Received</span>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-900 block">Connection Request #903</span>
-                            <span class="text-slate-500">Card Payment Processed</span>
-                        </div>
-                        <span class="font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">+$2.00 Received</span>
-                    </div>
+                <div class="flex items-center justify-between">
+                    <h4 class="font-bold text-sm text-slate-800">Pending Requests & Conversation Unlocks</h4>
+                    <span id="pendingCount" class="text-xs bg-amber-100 text-amber-800 font-bold px-2.5 py-0.5 rounded-full">1 Pending</span>
+                </div>
+                
+                <div id="adminRequestsList" class="space-y-3 text-xs">
+                    <!-- Dynamic Requests Rendered Here -->
                 </div>
             </div>
         </div>
@@ -423,12 +430,62 @@
             }
         ];
 
+        // Connection Requests Database
+        let pendingRequests = [
+            {
+                id: "REQ-901",
+                name: "Eric M.",
+                contact: "+250 788 123 456",
+                target: "Sarah J. (Tech Founder)",
+                txId: "TX-998124",
+                amount: "$2.00",
+                status: "Pending Approval"
+            }
+        ];
+
+        let selectedTargetMember = "General Network Member";
+
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
             renderMediaFeed();
+            renderAdminRequests();
 
             document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
                 document.getElementById('mobileMenu').classList.toggle('hidden');
+            });
+
+            // Payment Confirmation Submission
+            document.getElementById('paymentConfirmForm')?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('payerName').value.trim();
+                const contact = document.getElementById('payerContact').value.trim();
+                const txId = document.getElementById('payerTxId').value.trim();
+
+                if (name && contact && txId) {
+                    const newReq = {
+                        id: `REQ-${Math.floor(100 + Math.random() * 900)}`,
+                        name,
+                        contact,
+                        target: selectedTargetMember,
+                        txId,
+                        amount: "$2.00",
+                        status: "Pending Approval"
+                    };
+
+                    pendingRequests.unshift(newReq);
+                    renderAdminRequests();
+
+                    // Dispatch Email Notification to Khalifa
+                    const emailSubject = encodeURIComponent(`⚡ New $2 Payment Request from ${name} (TxID: ${txId})`);
+                    const emailBody = encodeURIComponent(`Hello Mediator Khalifa,\n\nA new user has submitted a $2 connection payment to unlock a conversation.\n\nPayer Name: ${name}\nContact: ${contact}\nTarget Connection: ${selectedTargetMember}\nTransaction ID: ${txId}\nAmount: $2.00 USD\n\nPlease log into your Mediator Admin Portal (PIN: 2299) to unlock and approve their conversation.`);
+                    
+                    // Trigger mailto link in background
+                    window.open(`mailto:khalifajmj50@gmail.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
+
+                    alert(`Payment details submitted! An alert has been sent to Mediator Khalifa (khalifajmj50@gmail.com). You will be notified once Khalifa approves and unlocks your conversation.`);
+                    toggleModal('paymentModal');
+                    document.getElementById('paymentConfirmForm').reset();
+                }
             });
 
             // Media Submission Form
@@ -457,6 +514,7 @@
                 if (user === 'khalifa' && pass === '2299') {
                     toggleModal('adminLoginModal');
                     toggleModal('adminDashboardModal');
+                    renderAdminRequests();
                     document.getElementById('adminLoginForm').reset();
                 } else {
                     alert('Invalid Mediator Credentials. Access Denied.');
@@ -496,12 +554,59 @@
             if (window.lucide) lucide.createIcons();
         }
 
-        function openPaymentModal(targetName) {
-            toggleModal('paymentModal');
+        function renderAdminRequests() {
+            const list = document.getElementById('adminRequestsList');
+            const counter = document.getElementById('pendingCount');
+            if (!list) return;
+
+            const pending = pendingRequests.filter(r => r.status === "Pending Approval");
+            if (counter) counter.innerText = `${pending.length} Pending`;
+
+            if (pendingRequests.length === 0) {
+                list.innerHTML = `<p class="text-slate-400 italic">No connection requests logged yet.</p>`;
+                return;
+            }
+
+            list.innerHTML = pendingRequests.map(r => `
+                <div class="p-4 rounded-2xl ${r.status === 'Unlocked & Approved' ? 'bg-emerald-50/60 border border-emerald-200' : 'bg-amber-50/60 border border-gold-300'} space-y-2">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="font-bold text-slate-900 text-sm block">${r.name} ➔ ${r.target}</span>
+                            <span class="text-[11px] text-slate-500">Contact: <strong class="text-slate-800">${r.contact}</strong> | TxID: <code class="text-amber-700">${r.txId}</code></span>
+                        </div>
+                        <span class="font-bold ${r.status === 'Unlocked & Approved' ? 'text-emerald-700 bg-emerald-100' : 'text-amber-800 bg-amber-100'} px-2.5 py-1 rounded-lg text-[11px]">
+                            ${r.status}
+                        </span>
+                    </div>
+
+                    ${r.status === 'Pending Approval' ? `
+                        <button onclick="approveRequest('${r.id}')" class="w-full py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl text-xs transition shadow-md flex items-center justify-center gap-1.5">
+                            <i data-lucide="unlock" class="w-3.5 h-3.5"></i>
+                            <span>Unlock & Approve Conversation ($2 Verified)</span>
+                        </button>
+                    ` : `
+                        <div class="p-2 bg-white rounded-xl border border-emerald-200 text-[11px] text-emerald-800 font-semibold flex items-center justify-between">
+                            <span>✅ Conversation Unlocked & Direct Access Granted</span>
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                        </div>
+                    `}
+                </div>
+            `).join('');
+
+            if (window.lucide) lucide.createIcons();
         }
 
-        function confirmPayment() {
-            alert('Your payment confirmation has been sent to Mediator Khalifa! Contact credentials will be unblocked upon instant verification.');
+        function approveRequest(reqId) {
+            const req = pendingRequests.find(r => r.id === reqId);
+            if (req) {
+                req.status = "Unlocked & Approved";
+                renderAdminRequests();
+                alert(`Success! Conversation between ${req.name} and ${req.target} has been unlocked!`);
+            }
+        }
+
+        function openPaymentModal(targetName) {
+            selectedTargetMember = targetName;
             toggleModal('paymentModal');
         }
 
